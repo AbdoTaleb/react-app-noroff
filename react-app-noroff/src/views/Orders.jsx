@@ -1,4 +1,5 @@
 import React from 'react'
+import withAuth from '../hoc/withAuth'
 
 function Orders() {
   return (
@@ -6,4 +7,4 @@ function Orders() {
   )
 }
 
-export default Orders
+export default withAuth(Orders) 

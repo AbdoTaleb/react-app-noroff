@@ -7,13 +7,15 @@ import {
 import Login from './views/Login';
 import Orders from './views/Orders';
 import Profile from './views/Profile';
+import Navbar from './components/Navbar/Navbar';
 
 function App() {
-  console.log(process.env.REACT_APP_VERCEL_ANALYTICS_ID)
+  
   return (
     
     <BrowserRouter>
     <div className="App">
+      <Navbar></Navbar>
       <Routes>
         <Route path='/' element={ <Login /> } />
         <Route path='orders' element={ <Orders /> } />

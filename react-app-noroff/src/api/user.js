@@ -1,37 +1,53 @@
+import { createHeaders } from "./index";
+
 const apiUrl = process.env.REACT_APP_API_URL;
-export const checkForUser = async (username) => {
-    try{
+
+
+const checkForUser = async (username) => {
+    try {
         const response = await fetch(`${apiUrl}?username=${username}`);
-        if(!response.ok){
-            throw new Error("Could't complete request")
+        if (!response.ok) {
+            throw new Error("Could't complete request" + username)
         }
         const data = await response.json()
-        return [ null, data]
-    } 
+        return [null, data]
+    }
     catch (error) {
-        return [ error.message , []]
+        return [error.message, []]
     }
 }
 
-export const createUser = async (username) => {
-    try{
-        const response = await fetch(`apiUrl`);
-        if(!response.ok){
-            throw new Error("Could't crate tghe suer")
+const createUser = async (username) => {
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: createHeaders(),
+            body: JSON.stringify({
+                username,
+                orders: []
+            })
+        });
+        if (!response.ok) {
+            throw new Error("Could't crate the suer" + username)
         }
         const data = await response.json()
-        return [ null, data]
-    } 
+        return [null, data]
+    }
     catch (error) {
-        return [ error.message , []]
+        return [error.message, []]
     }
 }
 
 export const loginUser = async (username) => {
-    const [ error, user ] = await checkForUser(username);
-    if(user.length > 0){
-        return [ null, user.pop() ]
+    const [checkError, user] = await checkForUser(username);
+
+    if (checkError !== null) {
+        return [ checkError, null ];
     }
-    
-    const [createError, newUser] =  createUser(username);
+    if (user.length > 0) {
+        return [null, user.pop()]
+    }
+
+    return await createUser(username);
+
 }
