@@ -1,13 +1,13 @@
 import React from 'react'
 
-function OrdersCoffeeButton({name, image}) {
+function OrdersCoffeeButton({coffee, onSelect}) {
   return (
-    <button>
+    <button onClick={() => onSelect(coffee.id)}>
         <aside>
-            <img src={image}   alt={name} with='55'></img>
+            <img src={coffee.image} alt={coffee.name} with='20' height="50"></img>
         </aside>
         <section>
-            <b>{name}</b>
+            <b>{coffee.name}</b>
         </section>
 
     </button>
